@@ -8,14 +8,14 @@ class Timer extends Component {
     this.state = {
       timeMs: 0,
       btn: "start",
-      interval:null
+      interval: 0
     };
   }
   start = () => {
-    if (this.state.interval && this.state.btn === "pause") {
+    if (this.state.interval) {
       clearInterval(this.state.interval);
       this.setState({
-        interval: undefined,
+        interval: 0,
         btn: "start"
       });
     } else {
@@ -25,7 +25,7 @@ class Timer extends Component {
         });
       }, 1000);
       this.setState({
-        interval: interval,
+        interval,
         btn: "pause"
       });
     }
@@ -36,14 +36,14 @@ class Timer extends Component {
     if (!this.state.interval) {
       this.setState({
         timeMs: 0,
-        interval: undefined
+        interval: 0
       });
       return;
     }
     clearInterval(this.state.interval);
     this.setState({
       timeMs: 0,
-      interval: undefined
+      interval: 0
     });
   };
   render() {
@@ -53,16 +53,24 @@ class Timer extends Component {
         <button
           className="btn border border-danger"
           type="button"
-          style={{height:'60px',borderRadius:'50%',width:'60px'}}
+          style={{ height: "60px", borderRadius: "50%", width: "60px" }}
           onClick={this.start}
-        >{this.state.btn==='start' ? <i class="far fa-play-circle" style={{fontSize:'25px'}} ></i> : <i class="far fa-pause-circle" style={{fontSize:'25px'}}></i>  }</button>
+        >
+          {this.state.btn === "start" ? (
+            <i class="far fa-play-circle" style={{ fontSize: "25px" }} />
+          ) : (
+            <i class="far fa-pause-circle" style={{ fontSize: "25px" }} />
+          )}
+        </button>
         <button
           className="btn border border-danger"
-          style={{height:'60px',borderRadius:'50%',width:'60px'}}
+          style={{ height: "60px", borderRadius: "50%", width: "60px" }}
           type="button"
           value="Reset"
           onClick={this.reset}
-        ><i class="fas fa-stop" style={{fontSize:'25px'}}></i></button>
+        >
+          <i class="fas fa-stop" style={{ fontSize: "25px" }} />
+        </button>
       </div>
     );
   }
